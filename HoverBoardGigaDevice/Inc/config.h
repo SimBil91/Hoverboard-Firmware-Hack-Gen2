@@ -37,6 +37,7 @@
 
 #define MASTER										  	// Select if firmware is for master or slave board
 //#define SLAVE 												// Select if firmware is for master or slave board
+//#define HALL_INTERRUPTS								// Enable Hall interrupt reading
 
 // ################################################################################
 
