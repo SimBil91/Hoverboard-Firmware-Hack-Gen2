@@ -41,7 +41,7 @@
 
 // Only master communicates with steerin device
 #ifdef MASTER
-#define USART_STEER_TX_BYTES 2   // Transmit byte count including start '/' and stop character '\n'
+#define USART_STEER_TX_BYTES 12   // Transmit byte count including start '/' and stop character '\n'
 #define USART_STEER_RX_BYTES 8   // Receive byte count including start '/' and stop character '\n'
 
 extern uint8_t usartSteer_COM_rx_buf[USART_STEER_COM_RX_BUFFERSIZE];
@@ -54,19 +54,37 @@ void CheckUSARTSteerInput(uint8_t u8USARTBuffer[]);
 extern int32_t speedM; // speed master
 extern int32_t speedS; // speed slave
 
+extern int32_t encM; // speed master
+extern int32_t encS; // speed slave
+
 //----------------------------------------------------------------------------
 // Send frame to steer device
 //----------------------------------------------------------------------------
 void SendSteerDevice(void)
 {
+	uint16_t crc;
+
 	int index = 0;
 	uint8_t buffer[USART_STEER_TX_BYTES];
 	
 	// Ask for steer input
 	buffer[index++] = '/';
+	// encM
+	buffer[index++] = (encM >> 24) & 0xFF;
+	buffer[index++] = (encM >> 16) & 0xFF;
+	buffer[index++] = (encM >> 8) & 0xFF;
+	buffer[index++] =  encM & 0xFF;
+	// encS
+	buffer[index++] = (encS >> 24) & 0xFF;
+	buffer[index++] = (encS >> 16) & 0xFF;
+	buffer[index++] = (encS >> 8) & 0xFF;
+	buffer[index++] =  encS & 0xFF;
+	// Calculate CRC (first bytes except crc and stop byte)
+	crc = CalcCRC(buffer, index);
+	buffer[index++] = (crc >> 8) & 0xFF;
+	buffer[index++] =  crc & 0xFF;
 	buffer[index++] = '\n';
-	
-	//SendBuffer(USART_STEER_COM, buffer, index);
+	SendBuffer(USART_STEER_COM, buffer, index);
 }
 
 //----------------------------------------------------------------------------

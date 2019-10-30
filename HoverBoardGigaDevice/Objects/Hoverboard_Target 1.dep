@@ -1,5 +1,5 @@
 Dependencies for Project 'Hoverboard', Target 'Target 1': (DO NOT MODIFY !)
-F (.\Src\main.c)(0x5DAC840F)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Src\main.c)(0x5DB9F620)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CEBCE42)
@@ -25,7 +25,7 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/setup.h)(0x5DAC9FCC)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/defines.h)(0x5DA308C9)
 I (Src\../Inc/it.h)(0x5DA308C9)
 I (Src\../Inc/bldc.h)(0x5DA308C9)
@@ -37,7 +37,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5CEBCE42)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5CEBCE42)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5CEBCE36)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\arm_math.h)(0x5C8FA234)
-F (.\Src\bldc.c)(0x5DA308C9)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\bldc.o --omf_browse .\objects\bldc.crf --depend .\objects\bldc.d)
+F (.\Src\bldc.c)(0x5DBA05A6)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\bldc.o --omf_browse .\objects\bldc.crf --depend .\objects\bldc.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CEBCE42)
@@ -63,9 +63,9 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/setup.h)(0x5DAC9FCC)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/defines.h)(0x5DA308C9)
-F (.\Src\setup.c)(0x5DACA1BC)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\setup.o --omf_browse .\objects\setup.crf --depend .\objects\setup.d)
+F (.\Src\setup.c)(0x5DACA505)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\setup.o --omf_browse .\objects\setup.crf --depend .\objects\setup.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CEBCE42)
@@ -91,10 +91,10 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/setup.h)(0x5DAC9FCC)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/defines.h)(0x5DA308C9)
 I (Src\../Inc/it.h)(0x5DA308C9)
-F (.\Src\it.c)(0x5DAC82DA)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\it.o --omf_browse .\objects\it.crf --depend .\objects\it.d)
+F (.\Src\it.c)(0x5DB9F530)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\it.o --omf_browse .\objects\it.crf --depend .\objects\it.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CEBCE42)
@@ -120,7 +120,7 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5DA308C9)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/defines.h)(0x5DA308C9)
 I (Src\../Inc/bldc.h)(0x5DA308C9)
 I (Src\../Inc/led.h)(0x5DA308C9)
@@ -178,7 +178,7 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/defines.h)(0x5DA308C9)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/setup.h)(0x5DAC9FCC)
 I (Src\../Inc/comms.h)(0x5DA308C9)
 I (Src\../Inc/commsMasterSlave.h)(0x5DA308C9)
@@ -186,7 +186,7 @@ I (Src\../Inc/commsBluetooth.h)(0x5DA308C9)
 I (Src\../Inc/led.h)(0x5DA308C9)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5CEBCE42)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5CEBCE42)
-F (.\Src\commsSteering.c)(0x5DACA230)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\commssteering.o --omf_browse .\objects\commssteering.crf --depend .\objects\commssteering.d)
+F (.\Src\commsSteering.c)(0x5DBA037D)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\commssteering.o --omf_browse .\objects\commssteering.crf --depend .\objects\commssteering.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CEBCE42)
@@ -212,7 +212,7 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5DA308C9)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/comms.h)(0x5DA308C9)
 I (Src\../Inc/commsSteering.h)(0x5DA308C9)
 I (Src\../Inc/setup.h)(0x5DAC9FCC)
@@ -220,7 +220,7 @@ I (Src\../Inc/defines.h)(0x5DA308C9)
 I (Src\../Inc/bldc.h)(0x5DA308C9)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5CEBCE42)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5CEBCE42)
-F (.\Src\commsMasterSlave.c)(0x5DA308C9)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\commsmasterslave.o --omf_browse .\objects\commsmasterslave.crf --depend .\objects\commsmasterslave.d)
+F (.\Src\commsMasterSlave.c)(0x5DB9F679)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\commsmasterslave.o --omf_browse .\objects\commsmasterslave.crf --depend .\objects\commsmasterslave.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5CEBCE42)
@@ -246,7 +246,7 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/it.h)(0x5DA308C9)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/comms.h)(0x5DA308C9)
 I (Src\../Inc/commsMasterSlave.h)(0x5DA308C9)
 I (Src\../Inc/setup.h)(0x5DAC9FCC)
@@ -280,8 +280,8 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/defines.h)(0x5DA308C9)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
-I (Src\../Inc/hallinterrupts.h)(0x5DAC92CB)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
+I (Src\../Inc/hallinterrupts.h)(0x5DB9F75B)
 F (.\Src\led.c)(0x5DAC83DF)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\led.o --omf_browse .\objects\led.crf --depend .\objects\led.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)
 I (..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include\core_cm3.h)(0x5C8FA234)
@@ -308,10 +308,10 @@ I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\F
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_misc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_opa.h)(0x5A7B03D8)
 I (Src\../Inc/led.h)(0x5DA308C9)
-I (Src\../Inc/../Inc/config.h)(0x5DACA1DA)
+I (Src\../Inc/../Inc/config.h)(0x5DBA05DA)
 I (Src\../Inc/defines.h)(0x5DA308C9)
 F (.\Inc\defines.h)(0x5DA308C9)()
-F (.\Inc\config.h)(0x5DACA1DA)()
+F (.\Inc\config.h)(0x5DBA05DA)()
 F (.\Inc\bldc.h)(0x5DA308C9)()
 F (.\Inc\setup.h)(0x5DAC9FCC)()
 F (.\Inc\it.h)(0x5DA308C9)()
@@ -320,7 +320,7 @@ F (.\Inc\commsBluetooth.h)(0x5DA308C9)()
 F (.\Inc\commsSteering.h)(0x5DA308C9)()
 F (.\Inc\commsMasterSlave.h)(0x5DA308C9)()
 F (.\Inc\led.h)(0x5DA308C9)()
-F (.\Inc\hallinterrupts.h)(0x5DAC92CB)()
+F (.\Inc\hallinterrupts.h)(0x5DB9F75B)()
 F (RTE\Device\GD32F130C8\gd32f1x0_adc.c)(0x5DA308C9)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork -I ..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Include-I.\RTE\_Target_1-IC:\Users\Simon\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc-IC:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include-D__UVISION_VERSION="528" -D_RTE_ -DGD32F130_150-o .\objects\gd32f1x0_adc.o --omf_browse .\objects\gd32f1x0_adc.crf --depend .\objects\gd32f1x0_adc.d)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Firmware\Peripherals\inc\gd32f1x0_adc.h)(0x5A7B03DA)
 I (C:\Users\Simon\AppData\Local\Arm\Packs\GigaDevice\GD32F1x0_DFP\3.1.1\Device\Include\gd32f1x0.h)(0x5A7B03DA)

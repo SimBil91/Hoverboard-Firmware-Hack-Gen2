@@ -40,10 +40,13 @@ const int16_t pwm_res = 72000000 / 2 / PWM_FREQ; // = 2000
 float batteryVoltage = 40.0;
 float currentDC = 0.0;
 float realSpeed = 0.0;
-
+int8_t inc;
 // Timeoutvariable set by timeout timer
 extern FlagStatus timedOut;
-
+extern int32_t m_enc;
+#ifdef MASTER
+	extern int32_t encM;
+#endif
 // Variables to be set from the main routine
 int16_t bldc_inputFilterPwm = 0;
 FlagStatus bldc_enable = RESET;
@@ -205,7 +208,21 @@ void CalculateBLDC(void)
 	// Determine current position based on hall sensors
   hall = hall_a * 1 + hall_b * 2 + hall_c * 4;
   pos = hall_to_pos[hall];
-	
+	inc = pos - lastPos;
+	if (inc == -5)
+	{
+		inc = -1;
+	}
+	if (inc == 5)
+	{
+		inc = 1;
+	}
+	#ifdef SLAVE
+	m_enc += inc;
+	#endif
+	#ifdef MASTER
+	encM += inc;
+	#endif
 	// Calculate low-pass filter for pwm value
 	filter_reg = filter_reg - (filter_reg >> FILTER_SHIFT) + bldc_inputFilterPwm;
 	bldc_outputFilterPwm = filter_reg >> FILTER_SHIFT;

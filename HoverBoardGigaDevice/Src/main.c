@@ -49,6 +49,8 @@
 #ifdef MASTER
 int32_t speedM = 0; 												// global variable for master wheel. -1000 to 1000
 int32_t speedS = 0; 												// global variable for slave wheel.    -1000 to 1000
+int32_t encM = 0; 												// global variable for master encoder starting at 0
+int32_t encS = 0; 												// global variable for slave encoder starting at 0
 FlagStatus activateWeakening = RESET;			// global variable for weakening
 FlagStatus beepsBackwards = RESET;  			// global variable for beeps backwards
 			
@@ -69,7 +71,7 @@ void ShowBatteryState(uint32_t pin);
 void BeepsBackwards(FlagStatus beepsBackwards);
 void ShutOff(void);
 #endif
-
+int32_t m_enc = 0;
 const float lookUpTableAngle[181] =  
 {
   -1,

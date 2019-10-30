@@ -41,14 +41,18 @@
 
 #ifdef MASTER
 #define USART_MASTERSLAVE_TX_BYTES 10  // Transmit byte count including start '/' and stop character '\n'
-#define USART_MASTERSLAVE_RX_BYTES 5   // Receive byte count including start '/' and stop character '\n'
+#define USART_MASTERSLAVE_RX_BYTES 9   // Receive byte count including start '/' and stop character '\n'
 
 // Variables which will be written by slave frame
 extern FlagStatus beepsBackwards;
+extern int32_t encS;
+extern int32_t encM;
+
 #endif
 #ifdef SLAVE
-#define USART_MASTERSLAVE_TX_BYTES 5   // Transmit byte count including start '/' and stop character '\n'
+#define USART_MASTERSLAVE_TX_BYTES 9   // Transmit byte count including start '/' and stop character '\n'
 #define USART_MASTERSLAVE_RX_BYTES 10  // Receive byte count including start '/' and stop character '\n'
+extern int32_t m_enc;
 
 // Variables which will be send to master
 FlagStatus upperLEDMaster = RESET;
@@ -150,9 +154,11 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 	}
 	
 #ifdef MASTER
+	// Save encS
+	encS = (int32_t)((USARTBuffer[2] << 24) | (USARTBuffer[3] << 16) | (USARTBuffer[4] << 8) | USARTBuffer[5]);
+
 	// Calculate setvalues for LED and mosfets
 	byte = USARTBuffer[1];
-	
 	//none = (byte & BIT(7)) ? SET : RESET;
 	//none = (byte & BIT(6)) ? SET : RESET;
 	//none = (byte & BIT(5)) ? SET : RESET;
@@ -289,7 +295,10 @@ void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus
 	// Send answer
 	buffer[index++] = '/';
 	buffer[index++] = sendByte;
-	
+	buffer[index++] = (m_enc >> 24) & 0xFF;
+	buffer[index++] = (m_enc >> 16) & 0xFF;
+	buffer[index++] = (m_enc >> 8) & 0xFF;
+	buffer[index++] =  m_enc & 0xFF;
 	// Calculate CRC
   crc = CalcCRC(buffer, index);
   buffer[index++] = (crc >> 8) & 0xFF;
