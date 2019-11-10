@@ -41,7 +41,7 @@
 
 // Only master communicates with steerin device
 #ifdef MASTER
-#define USART_STEER_TX_BYTES 12   // Transmit byte count including start '/' and stop character '\n'
+#define USART_STEER_TX_BYTES 16   // Transmit byte count including start '/' and stop character '\n'
 #define USART_STEER_RX_BYTES 8   // Receive byte count including start '/' and stop character '\n'
 
 extern uint8_t usartSteer_COM_rx_buf[USART_STEER_COM_RX_BUFFERSIZE];
@@ -57,13 +57,18 @@ extern int32_t speedS; // speed slave
 extern int32_t encM; // speed master
 extern int32_t encS; // speed slave
 
+// Battery voltage and dc
+extern float batteryVoltage; 							// global variable for battery voltage
+extern float currentDC; 									// global variable for current dc
+
 //----------------------------------------------------------------------------
 // Send frame to steer device
 //----------------------------------------------------------------------------
 void SendSteerDevice(void)
 {
 	uint16_t crc;
-
+	int16_t bat_voltage;
+	int16_t bat_curr;
 	int index = 0;
 	uint8_t buffer[USART_STEER_TX_BYTES];
 	
@@ -79,6 +84,14 @@ void SendSteerDevice(void)
 	buffer[index++] = (encS >> 16) & 0xFF;
 	buffer[index++] = (encS >> 8) & 0xFF;
 	buffer[index++] =  encS & 0xFF;
+	// Battery Current
+	bat_curr = (int16_t) (currentDC * 100);
+	buffer[index++] = (bat_curr >> 8) & 0xFF;
+	buffer[index++] =  bat_curr & 0xFF;
+	// Battery Voltage
+	bat_voltage = (int16_t) (batteryVoltage * 100);
+	buffer[index++] = (bat_voltage >> 8) & 0xFF;
+	buffer[index++] =  bat_voltage & 0xFF;
 	// Calculate CRC (first bytes except crc and stop byte)
 	crc = CalcCRC(buffer, index);
 	buffer[index++] = (crc >> 8) & 0xFF;
