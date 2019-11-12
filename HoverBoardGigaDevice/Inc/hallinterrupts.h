@@ -20,7 +20,6 @@
 #define HALLINTERRUPTS_H
 
 #include "config.h"
-
 #ifdef HALL_INTERRUPTS
 
 #include "defines.h"

@@ -61,6 +61,7 @@ uint8_t hall_c;
 uint8_t hall;
 uint8_t pos;
 uint8_t lastPos;
+uint8_t lastHall;
 int16_t bldc_outputFilterPwm = 0;
 int32_t filter_reg;
 FlagStatus buzzerToggle = RESET;
@@ -70,6 +71,17 @@ uint16_t buzzerTimer = 0;
 int16_t offsetcount = 0;
 int16_t offsetdc = 2000;
 uint32_t speedCounter = 0;
+
+static const int increments[7][7] =
+{
+    {  0,  0,  0,  0,  0,  0,  0 },
+    {  0,  0,  0, -1,  0,  1,  0 },
+    {  0,  0,  0,  1,  0,  0, -1 },
+    {  0,  1, -1,  0,  0,  0,  0 },
+    {  0,  0,  0,  0,  0, -1,  1 },
+    {  0, -1,  0,  0,  1,  0,  0 },
+    {  0,  0,  1,  0, -1,  0,  0 },
+};
 
 //----------------------------------------------------------------------------
 // Commutation table
@@ -208,15 +220,8 @@ void CalculateBLDC(void)
 	// Determine current position based on hall sensors
   hall = hall_a * 1 + hall_b * 2 + hall_c * 4;
   pos = hall_to_pos[hall];
-	inc = pos - lastPos;
-	if (inc == -5)
-	{
-		inc = -1;
-	}
-	if (inc == 5)
-	{
-		inc = 1;
-	}
+	inc = increments[lastHall][hall];
+	lastHall = hall;
 	#ifdef SLAVE
 	m_enc += inc;
 	#endif
