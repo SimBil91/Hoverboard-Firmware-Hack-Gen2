@@ -456,8 +456,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Src\hallinterupts.c</PathWithFileName>
-      <FilenameWithoutPath>hallinterupts.c</FilenameWithoutPath>
+      <PathWithFileName>.\Src\led.c</PathWithFileName>
+      <FilenameWithoutPath>led.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -468,8 +468,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Src\led.c</PathWithFileName>
-      <FilenameWithoutPath>led.c</FilenameWithoutPath>
+      <PathWithFileName>.\Src\pid.c</PathWithFileName>
+      <FilenameWithoutPath>pid.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -608,8 +608,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Inc\hallinterrupts.h</PathWithFileName>
-      <FilenameWithoutPath>hallinterrupts.h</FilenameWithoutPath>
+      <PathWithFileName>.\Inc\pid.h</PathWithFileName>
+      <FilenameWithoutPath>pid.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

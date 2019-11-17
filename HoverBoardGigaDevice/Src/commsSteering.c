@@ -42,7 +42,7 @@
 // Only master communicates with steerin device
 #ifdef MASTER
 #define USART_STEER_TX_BYTES 16   // Transmit byte count including start '/' and stop character '\n'
-#define USART_STEER_RX_BYTES 8   // Receive byte count including start '/' and stop character '\n'
+#define USART_STEER_RX_BYTES 11   // Receive byte count including start '/' and stop character '\n'
 
 extern uint8_t usartSteer_COM_rx_buf[USART_STEER_COM_RX_BUFFERSIZE];
 static uint8_t sSteerRecord = 0;
@@ -50,7 +50,10 @@ static uint8_t sUSARTSteerRecordBuffer[USART_STEER_RX_BYTES];
 static uint8_t sUSARTSteerRecordBufferCounter = 0;
 
 void CheckUSARTSteerInput(uint8_t u8USARTBuffer[]);
-
+// Config Params
+extern float Ki;
+extern float Kd;
+extern float Kp;
 extern int32_t speedM; // speed master
 extern int32_t speedS; // speed slave
 
@@ -155,11 +158,10 @@ void CheckUSARTSteerInput(uint8_t USARTBuffer[])
 		return;
 	}
 	
-	// Calculate result speed value -1000 to 1000
-	speedM = (int16_t)((USARTBuffer[1] << 8) | USARTBuffer[2]);
-	
-	// Calculate result steering value -1000 to 1000
-	speedS = (int16_t)((USARTBuffer[3] << 8) | USARTBuffer[4]);
+	// Calculate result joint speed value -2000 to 2000 mm/s
+	speedM = CLAMP((int16_t)((USARTBuffer[1] << 8) | USARTBuffer[2]), -2000, 2000);
+	// Calculate result joint speed value -2000 to 2000 mm/s
+	speedS = CLAMP((int16_t)((USARTBuffer[3] << 8) | USARTBuffer[4]), -2000, 2000);
 	
 	// Reset the pwm timout to avoid stopping motors
 	ResetTimeout();

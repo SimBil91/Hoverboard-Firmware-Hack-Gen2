@@ -256,7 +256,10 @@ const float lookUpTableAngle[181] =
   -1.067005175,
   -1
 };
+#ifdef SLAVE
+int32_t desiredSpeedSlave;								// Global Variable for desiredSpeedSlave, received by Slave
 
+#endif
 
 //----------------------------------------------------------------------------
 // MAIN function
@@ -270,8 +273,6 @@ int main (void)
 	int16_t sendSlaveValue = 0;
 	uint8_t sendSlaveIdentifier = 0;
 	int8_t index = 8;
-  int16_t pwmSlave = 0;
-	int16_t pwmMaster = 0;
 #endif
 	
 	//SystemClock_Config();
@@ -339,9 +340,7 @@ int main (void)
 			// Request steering data
 			SendSteerDevice();
 		}
-		pwmSlave = CLAMP(speedS, -1000, 1000);
-		pwmMaster = CLAMP(speedM, -1000, 1000);
-		
+
 		// Read charge state
 		chargeStateLowActive = gpio_input_bit_get(CHARGE_STATE_PORT, CHARGE_STATE_PIN);
 		
@@ -370,9 +369,8 @@ int main (void)
 					break;
 		}
 		
-    // Set output
-		SetPWM(pwmMaster);
-		SendSlave(-pwmSlave, enableSlave, RESET, chargeStateLowActive, sendSlaveIdentifier, sendSlaveValue);
+
+		SendSlave(-speedS, enableSlave, RESET, chargeStateLowActive, sendSlaveIdentifier, sendSlaveValue);
 		
 		// Increment identifier
 		sendSlaveIdentifier++;
@@ -426,7 +424,7 @@ int main (void)
     }
 		
 		// Calculate inactivity timeout (Except, when charger is active -> keep device running)
-    if (ABS(pwmMaster) > 1 || ABS(pwmSlave) > 1 || !chargeStateLowActive)
+    if (ABS(speedM) > 1 || ABS(speedS) > 1 || !chargeStateLowActive)
 		{
       inactivity_timeout_counter = 0;
     }

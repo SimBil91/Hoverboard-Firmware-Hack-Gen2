@@ -32,6 +32,7 @@
 #include "../Inc/setup.h"
 #include "../Inc/defines.h"
 #include "../Inc/config.h"
+#include "../Inc/bldc.h"
 
 // Internal constants
 const int16_t pwm_res = 72000000 / 2 / PWM_FREQ; // = 2000
@@ -43,6 +44,8 @@ float realSpeed = 0.0;
 int8_t inc;
 // Timeoutvariable set by timeout timer
 extern FlagStatus timedOut;
+extern int32_t speedM; // speed master
+extern int16_t desiredSpeedSlave;
 extern int32_t m_enc;
 #ifdef MASTER
 	extern int32_t encM;
@@ -70,7 +73,8 @@ uint8_t buzzerPattern = 0;
 uint16_t buzzerTimer = 0;
 int16_t offsetcount = 0;
 int16_t offsetdc = 2000;
-uint32_t speedCounter = 0;
+uint32_t loopCounter = 0;
+int16_t num_ticks_since_update = 0;
 
 static const int increments[7][7] =
 {
@@ -167,7 +171,6 @@ void CalculateBLDC(void)
 	int y = 0;     // yellow = phase A
 	int b = 0;     // blue   = phase B
 	int g = 0;     // green  = phase C
-	
 	// Calibrate ADC offsets for the first 1000 cycles
   if (offsetcount < 1000)
 	{  
@@ -216,7 +219,8 @@ void CalculateBLDC(void)
 	hall_a = gpio_input_bit_get(HALL_A_PORT, HALL_A_PIN);
   hall_b = gpio_input_bit_get(HALL_B_PORT, HALL_B_PIN);
 	hall_c = gpio_input_bit_get(HALL_C_PORT, HALL_C_PIN);
-  
+
+	
 	// Determine current position based on hall sensors
   hall = hall_a * 1 + hall_b * 2 + hall_c * 4;
   pos = hall_to_pos[hall];
@@ -228,6 +232,25 @@ void CalculateBLDC(void)
 	#ifdef MASTER
 	encM += inc;
 	#endif
+	// Increments with 62.5us
+	if(loopCounter < (1600 / PID_HZ)) // Only update pid and measured speed after x rounds
+	{
+		num_ticks_since_update += inc;
+		loopCounter++;
+	}
+	else
+	{
+		// Update realSpeed and PWM
+		realSpeed = num_ticks_since_update * PID_HZ; // Ticks per Second
+		#ifdef MASTER
+		SetPWM(updatePID(speedM, realSpeed, 1.0 / PID_HZ));
+		#endif
+		#ifdef SLAVE
+		SetPWM(updatePID(desiredSpeedSlave, realSpeed, 1.0 / PID_HZ));
+		#endif
+		loopCounter = 0;
+		num_ticks_since_update = 0;
+	}
 	// Calculate low-pass filter for pwm value
 	filter_reg = filter_reg - (filter_reg >> FILTER_SHIFT) + bldc_inputFilterPwm;
 	bldc_outputFilterPwm = filter_reg >> FILTER_SHIFT;
@@ -240,25 +263,8 @@ void CalculateBLDC(void)
 	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_B, CLAMP(b + pwm_res / 2, 10, pwm_res-10));
 	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_Y, CLAMP(y + pwm_res / 2, 10, pwm_res-10));
 	
-	// Increments with 62.5us
-	if(speedCounter < 4000) // No speed after 250ms
-	{
-		speedCounter++;
-	}
+
 	
-	// Every time position reaches value 1, one round is performed (rising edge)
-	if (lastPos != 1 && pos == 1)
-	{
-		realSpeed = 1991.81f / (float)speedCounter; //[km/h]
-		speedCounter = 0;
-	}
-	else
-	{
-		if (speedCounter >= 4000)
-		{
-			realSpeed = 0;
-		}
-	}
 
 	// Safe last position
 	lastPos = pos;

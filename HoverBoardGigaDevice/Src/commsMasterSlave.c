@@ -38,6 +38,7 @@
 #include "../Inc/bldc.h"
 #include "stdio.h"
 #include "string.h"
+#include "../Inc/pid.h"
 
 #ifdef MASTER
 #define USART_MASTERSLAVE_TX_BYTES 10  // Transmit byte count including start '/' and stop character '\n'
@@ -53,6 +54,7 @@ extern int32_t encM;
 #define USART_MASTERSLAVE_TX_BYTES 9   // Transmit byte count including start '/' and stop character '\n'
 #define USART_MASTERSLAVE_RX_BYTES 10  // Receive byte count including start '/' and stop character '\n'
 extern int32_t m_enc;
+extern int32_t desiredSpeedSlave;
 
 // Variables which will be send to master
 FlagStatus upperLEDMaster = RESET;
@@ -123,7 +125,6 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 #endif
 #ifdef SLAVE
 	// Result variables
-	int16_t pwmSlave = 0;
 	FlagStatus enable = RESET;
 	FlagStatus shutoff = RESET;
 	FlagStatus chargeStateLowActive = SET;
@@ -175,7 +176,7 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 #endif
 #ifdef SLAVE
 	// Calculate result pwm value -1000 to 1000
-	pwmSlave = (int16_t)((USARTBuffer[1] << 8) | USARTBuffer[2]);
+	desiredSpeedSlave = (int16_t)((USARTBuffer[1] << 8) | USARTBuffer[2]);
 	
 	// Get identifier
 	identifier = USARTBuffer[3];
@@ -216,7 +217,6 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 	gpio_bit_write(LED_GREEN_PORT, LED_GREEN, chargeStateLowActive == SET ? SET : RESET);
 	gpio_bit_write(LED_RED_PORT, LED_RED, chargeStateLowActive == RESET ? SET : RESET);
 	SetEnable(enable);
-	SetPWM(pwmSlave);
 	CheckGeneralValue(identifier, value);
 	
 	// Send answer
@@ -231,15 +231,15 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 //----------------------------------------------------------------------------
 // Send slave frame via USART
 //----------------------------------------------------------------------------
-void SendSlave(int16_t pwmSlave, FlagStatus enable, FlagStatus shutoff, FlagStatus chargeState, uint8_t identifier, int16_t value)
+void SendSlave(int16_t speedS, FlagStatus enable, FlagStatus shutoff, FlagStatus chargeState, uint8_t identifier, int16_t value)
 {
 	uint8_t index = 0;
 	uint16_t crc = 0;
 	uint8_t buffer[USART_MASTERSLAVE_TX_BYTES];
 	
 	// Format pwmValue and general value
-	int16_t sendPwm = CLAMP(pwmSlave, -1000, 1000);
-	uint16_t sendPwm_Uint = (uint16_t)(sendPwm);
+	int16_t sendSpeed = CLAMP(speedS, -2000, 2000);
+	uint16_t sendSpeed_Uint = (uint16_t)(sendSpeed);
 	uint16_t value_Uint = (uint16_t)(value);
 	
 	uint8_t sendByte = 0;
@@ -254,8 +254,8 @@ void SendSlave(int16_t pwmSlave, FlagStatus enable, FlagStatus shutoff, FlagStat
 	
 	// Send answer
 	buffer[index++] = '/';
-	buffer[index++] = (sendPwm_Uint >> 8) & 0xFF;
-	buffer[index++] = sendPwm_Uint & 0xFF;
+	buffer[index++] = (sendSpeed_Uint >> 8) & 0xFF;
+	buffer[index++] = sendSpeed_Uint & 0xFF;
 	buffer[index++] = identifier;
 	buffer[index++] = (value_Uint >> 8) & 0xFF;
 	buffer[index++] = value_Uint & 0xFF;	

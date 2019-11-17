@@ -423,14 +423,14 @@
               <FilePath>.\Src\commsMasterSlave.c</FilePath>
             </File>
             <File>
-              <FileName>hallinterupts.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Src\hallinterupts.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Src\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\pid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -488,9 +488,9 @@
               <FilePath>.\Inc\led.h</FilePath>
             </File>
             <File>
-              <FileName>hallinterrupts.h</FileName>
+              <FileName>pid.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Inc\hallinterrupts.h</FilePath>
+              <FilePath>.\Inc\pid.h</FilePath>
             </File>
           </Files>
         </Group>
