@@ -74,7 +74,6 @@ uint16_t buzzerTimer = 0;
 int16_t offsetcount = 0;
 int16_t offsetdc = 2000;
 uint32_t loopCounter = 0;
-int16_t num_ticks_since_update = 0;
 
 static const int increments[7][7] =
 {
@@ -232,24 +231,23 @@ void CalculateBLDC(void)
 	#ifdef MASTER
 	encM += inc;
 	#endif
+	// Measure s
 	// Increments with 62.5us
-	if(loopCounter < (1600 / PID_HZ)) // Only update pid and measured speed after x rounds
+	if(loopCounter < 16000 && inc == 0) // Number of loops with no increment gives time
 	{
-		num_ticks_since_update += inc;
 		loopCounter++;
 	}
 	else
 	{
 		// Update realSpeed and PWM
-		realSpeed = num_ticks_since_update * PID_HZ; // Ticks per Second
+		realSpeed = 16000 / loopCounter; // Ticks per Second
 		#ifdef MASTER
-		SetPWM(updatePID(speedM, realSpeed, 1.0 / PID_HZ));
+		SetPWM(updatePID(speedM, realSpeed, loopCounter / 16000));
 		#endif
 		#ifdef SLAVE
 		SetPWM(updatePID(desiredSpeedSlave, realSpeed, 1.0 / PID_HZ));
 		#endif
 		loopCounter = 0;
-		num_ticks_since_update = 0;
 	}
 	// Calculate low-pass filter for pwm value
 	filter_reg = filter_reg - (filter_reg >> FILTER_SHIFT) + bldc_inputFilterPwm;

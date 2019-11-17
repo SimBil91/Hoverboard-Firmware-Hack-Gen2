@@ -36,6 +36,9 @@
 
 // Only master communicates with steering device
 #ifdef MASTER
+
+enum {PID_P, PID_I, PID_D, LED_L, LED_R, BUZZER};
+
 //----------------------------------------------------------------------------
 // Update USART steer input
 //----------------------------------------------------------------------------
@@ -45,6 +48,12 @@ void UpdateUSARTSteerInput(void);
 // Send frame to steer device
 //----------------------------------------------------------------------------
 void SendSteerDevice(void);
+
+//----------------------------------------------------------------------------
+// Check Config Value
+//----------------------------------------------------------------------------
+void CheckConfigValue(uint8_t identifier, int16_t value);
+
 #endif
 
 #endif

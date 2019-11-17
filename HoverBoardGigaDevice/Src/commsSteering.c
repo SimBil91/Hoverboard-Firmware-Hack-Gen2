@@ -140,6 +140,8 @@ void CheckUSARTSteerInput(uint8_t USARTBuffer[])
 {
 	// Auxiliary variables
 	uint16_t crc;
+	uint8_t identifier;
+	int16_t config_value;
 	
 	// Check start and stop character
 	if ( USARTBuffer[0] != '/' ||
@@ -162,8 +164,43 @@ void CheckUSARTSteerInput(uint8_t USARTBuffer[])
 	speedM = CLAMP((int16_t)((USARTBuffer[1] << 8) | USARTBuffer[2]), -2000, 2000);
 	// Calculate result joint speed value -2000 to 2000 mm/s
 	speedS = CLAMP((int16_t)((USARTBuffer[3] << 8) | USARTBuffer[4]), -2000, 2000);
-	
+	identifier = USARTBuffer[5];
+	config_value = (int16_t)((USARTBuffer[6] << 8) | USARTBuffer[7]);
+	CheckConfigValue(identifier, config_value);
 	// Reset the pwm timout to avoid stopping motors
 	ResetTimeout();
 }
+
+
+//----------------------------------------------------------------------------
+// Checks input value from master to set value depending on identifier
+//----------------------------------------------------------------------------
+void CheckConfigValue(uint8_t identifier, int16_t value)
+{
+	switch(identifier)
+	{
+		case PID_P:
+			Kp = (float)value / 100;
+			break;
+		case PID_I:
+			Ki = (float)value / 100;
+			break;
+		case PID_D:
+			Kd = (float)value / 100;
+			break;
+		case LED_L:
+			// DO nothing for now
+			break;
+		case LED_R:
+			// DO nothing for now
+			break;
+		case BUZZER:
+			// DO nothing for now
+			break;
+		default:
+			break;
+	}
+}
+
+
 #endif
