@@ -56,7 +56,9 @@ FlagStatus beepsBackwards = RESET;  			// global variable for beeps backwards
 			
 extern uint8_t buzzerFreq;    						// global variable for the buzzer pitch. can be 1, 2, 3, 4, 5, 6, 7...
 extern uint8_t buzzerPattern; 						// global variable for the buzzer pattern. can be 1, 2, 3, 4, 5, 6, 7...
-			
+extern float Ki;
+extern float Kd;
+extern float Kp;
 extern float batteryVoltage; 							// global variable for battery voltage
 extern float currentDC; 									// global variable for current dc
 extern float realSpeed; 									// global variable for real Speed
@@ -365,6 +367,15 @@ int main (void)
 			case 2:
 				sendSlaveValue = realSpeed * 100;
 				break;
+			case 3:
+				sendSlaveValue = (int16_t)(Kp * 100);
+				break;
+			case 4:
+				sendSlaveValue = (int16_t)(Ki * 100);
+				break;
+			case 5:
+				sendSlaveValue = (int16_t)(Kd * 100);
+				break;			
 				default:
 					break;
 		}
@@ -374,7 +385,7 @@ int main (void)
 		
 		// Increment identifier
 		sendSlaveIdentifier++;
-		if (sendSlaveIdentifier > 2)
+		if (sendSlaveIdentifier > 5)
 		{
 			sendSlaveIdentifier = 0;
 		}

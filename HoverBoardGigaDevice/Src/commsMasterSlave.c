@@ -42,20 +42,26 @@
 
 #ifdef MASTER
 #define USART_MASTERSLAVE_TX_BYTES 10  // Transmit byte count including start '/' and stop character '\n'
-#define USART_MASTERSLAVE_RX_BYTES 9   // Receive byte count including start '/' and stop character '\n'
+#define USART_MASTERSLAVE_RX_BYTES 13   // Receive byte count including start '/' and stop character '\n'
 
 // Variables which will be written by slave frame
 extern FlagStatus beepsBackwards;
 extern int32_t encS;
 extern int32_t encM;
+int16_t currentDCSlave;
+int16_t realSpeedSlave;
 
 #endif
 #ifdef SLAVE
-#define USART_MASTERSLAVE_TX_BYTES 9   // Transmit byte count including start '/' and stop character '\n'
+#define USART_MASTERSLAVE_TX_BYTES 13   // Transmit byte count including start '/' and stop character '\n'
 #define USART_MASTERSLAVE_RX_BYTES 10  // Receive byte count including start '/' and stop character '\n'
 extern int32_t m_enc;
 extern int32_t desiredSpeedSlave;
-
+extern float Ki;
+extern float Kd;
+extern float Kp;
+extern float realSpeed;
+extern float currentDC;
 // Variables which will be send to master
 FlagStatus upperLEDMaster = RESET;
 FlagStatus lowerLEDMaster = RESET;
@@ -157,7 +163,8 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 #ifdef MASTER
 	// Save encS
 	encS = (int32_t)((USARTBuffer[2] << 24) | (USARTBuffer[3] << 16) | (USARTBuffer[4] << 8) | USARTBuffer[5]);
-
+	currentDCSlave = (USARTBuffer[6] << 8) | USARTBuffer[7];
+	realSpeedSlave = (USARTBuffer[8] << 8) | USARTBuffer[9];
 	// Calculate setvalues for LED and mosfets
 	byte = USARTBuffer[1];
 	//none = (byte & BIT(7)) ? SET : RESET;
@@ -281,7 +288,8 @@ void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus
 	uint8_t index = 0;
 	uint16_t crc = 0;
 	uint8_t buffer[USART_MASTERSLAVE_TX_BYTES];
-	
+	int16_t realSpeed_int;
+	int16_t currentDC_int;
 	uint8_t sendByte = 0;
 	sendByte |= (0 << 7);
 	sendByte |= (0 << 6);
@@ -299,6 +307,13 @@ void SendMaster(FlagStatus upperLEDMaster, FlagStatus lowerLEDMaster, FlagStatus
 	buffer[index++] = (m_enc >> 16) & 0xFF;
 	buffer[index++] = (m_enc >> 8) & 0xFF;
 	buffer[index++] =  m_enc & 0xFF;
+	// Send currentDC
+	currentDC_int = (int16_t) (currentDC * 100);
+	buffer[index++] = (currentDC_int >> 8) & 0xFF;
+	buffer[index++] =  currentDC_int & 0xFF;
+	realSpeed_int = (int16_t) realSpeed * 100;
+	buffer[index++] = (realSpeed_int >> 8) & 0xFF;
+	buffer[index++] =  realSpeed_int & 0xFF;
 	// Calculate CRC
   crc = CalcCRC(buffer, index);
   buffer[index++] = (crc >> 8) & 0xFF;
@@ -327,6 +342,13 @@ void CheckGeneralValue(uint8_t identifier, int16_t value)
 			realSpeedMaster = value;
 			break;
 		case 3:
+			Kp = (float)value / 100;
+			break;
+		case 4:
+			Ki = (float)value / 100;
+			break;
+		case 5:
+			Kd = (float)value / 100;
 			break;
 		default:
 			break;

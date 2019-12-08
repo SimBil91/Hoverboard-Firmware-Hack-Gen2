@@ -45,7 +45,7 @@ int8_t inc;
 // Timeoutvariable set by timeout timer
 extern FlagStatus timedOut;
 extern int32_t speedM; // speed master
-extern int16_t desiredSpeedSlave;
+extern int32_t desiredSpeedSlave;
 extern int32_t m_enc;
 #ifdef MASTER
 	extern int32_t encM;
@@ -240,12 +240,12 @@ void CalculateBLDC(void)
 	else
 	{
 		// Update realSpeed and PWM
-		realSpeed = 16000 / loopCounter; // Ticks per Second
+		realSpeed = (float)inc * 16000.0 / (float)loopCounter; // Ticks per Second
 		#ifdef MASTER
-		SetPWM(updatePID(speedM, realSpeed, loopCounter / 16000));
+		SetPWM(updatePID((float)speedM, realSpeed, (float)loopCounter / 16000.0));
 		#endif
 		#ifdef SLAVE
-		SetPWM(updatePID(desiredSpeedSlave, realSpeed, 1.0 / PID_HZ));
+		SetPWM(updatePID((float)desiredSpeedSlave, realSpeed, (float)loopCounter / 16000.0));
 		#endif
 		loopCounter = 0;
 	}
@@ -260,9 +260,6 @@ void CalculateBLDC(void)
 	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_G, CLAMP(g + pwm_res / 2, 10, pwm_res-10));
 	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_B, CLAMP(b + pwm_res / 2, 10, pwm_res-10));
 	timer_channel_output_pulse_value_config(TIMER_BLDC, TIMER_BLDC_CHANNEL_Y, CLAMP(y + pwm_res / 2, 10, pwm_res-10));
-	
-
-	
 
 	// Safe last position
 	lastPos = pos;

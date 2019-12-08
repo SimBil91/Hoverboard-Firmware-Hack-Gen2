@@ -1,6 +1,6 @@
 #include "../Inc/pid.h"
 
-float last_error;
+float last_error = 0;
 float Kp = -1; // Proportial
 float Ki = -1; // Integral
 float Kd = -1; // Differential
@@ -18,9 +18,8 @@ int16_t updatePID(const float desired_val, const float measured_val, const float
 		// PID values not initialized
 		return 0;
 	}
-
-	delta_error = error - last_error;
 	error = desired_val - measured_val;
+	delta_error = error - last_error;
 	Iterm += error * dt;
 	
 	// Prevent I from getting too large
