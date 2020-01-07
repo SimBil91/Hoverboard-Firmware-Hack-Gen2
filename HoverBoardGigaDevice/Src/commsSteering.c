@@ -36,6 +36,7 @@
 #include "../Inc/config.h"
 #include "../Inc/defines.h"
 #include "../Inc/bldc.h"
+#include "../Inc/led.h"
 #include "stdio.h"
 #include "string.h"
 
@@ -48,7 +49,8 @@ extern uint8_t usartSteer_COM_rx_buf[USART_STEER_COM_RX_BUFFERSIZE];
 static uint8_t sSteerRecord = 0;
 static uint8_t sUSARTSteerRecordBuffer[USART_STEER_RX_BYTES];
 static uint8_t sUSARTSteerRecordBufferCounter = 0;
-
+int16_t led_slave;
+int16_t back_led_slave;
 void CheckUSARTSteerInput(uint8_t u8USARTBuffer[]);
 // Config Params
 extern float Ki;
@@ -67,6 +69,8 @@ extern float currentDC; 									// global variable for current dc
 extern int16_t currentDCSlave;
 extern int16_t realSpeedSlave;
 
+extern uint8_t buzzerFreq;    						// global variable for the buzzer pitch. can be 1, 2, 3, 4, 5, 6, 7...
+extern uint8_t buzzerPattern; 						// global variable for the buzzer pattern. can be 1, 2, 3, 4, 5
 //----------------------------------------------------------------------------
 // Send frame to steer device
 //----------------------------------------------------------------------------
@@ -216,13 +220,37 @@ void CheckConfigValue(uint8_t identifier, int16_t value)
 			Kd = (float)value / 100;
 			break;
 		case LED_L:
-			// DO nothing for now
+			SetRGBProgram(value);
+			break;
+		case BACK_LED_L:
+			// 0 = Off, 1 = Green, 2 = Red, 3 = Orange
+			switch(value)
+			{
+				case 1:
+					EnableLEDPin(LED_GREEN);
+					break;
+				case 2:
+					EnableLEDPin(LED_RED);
+					break;
+				case 3:
+					EnableLEDPin(LED_ORANGE);
+					break;
+				default:
+					// Turn off LED
+					EnableLEDPin(0);
+			}
 			break;
 		case LED_R:
-			// DO nothing for now
+			// Set global variable for slave
+			led_slave = value;
+			break;
+		case BACK_LED_R:
+			// Set global variable for slave
+			back_led_slave = value;
 			break;
 		case BUZZER:
-			// DO nothing for now
+			buzzerFreq = value;
+      buzzerPattern = 1;
 			break;
 		default:
 			break;

@@ -37,7 +37,7 @@
 // Only master communicates with steering device
 #ifdef MASTER
 
-enum {PID_P, PID_I, PID_D, LED_L, LED_R, BUZZER};
+enum {PID_P, PID_I, PID_D, LED_L, LED_R, BACK_LED_L, BACK_LED_R, BUZZER};
 
 enum {BAT_U, MOT_L_I, MOT_R_I, MOT_L_V, MOT_R_V};
 

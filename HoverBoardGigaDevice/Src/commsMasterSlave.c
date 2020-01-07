@@ -36,6 +36,7 @@
 #include "../Inc/config.h"
 #include "../Inc/defines.h"
 #include "../Inc/bldc.h"
+#include "../Inc/led.h"
 #include "stdio.h"
 #include "string.h"
 #include "../Inc/pid.h"
@@ -221,8 +222,8 @@ void CheckUSARTMasterSlaveInput(uint8_t USARTBuffer[])
 	}
 	
 	// Set functions according to the variables
-	gpio_bit_write(LED_GREEN_PORT, LED_GREEN, chargeStateLowActive == SET ? SET : RESET);
-	gpio_bit_write(LED_RED_PORT, LED_RED, chargeStateLowActive == RESET ? SET : RESET);
+	//gpio_bit_write(LED_GREEN_PORT, LED_GREEN, chargeStateLowActive == SET ? SET : RESET);
+	//gpio_bit_write(LED_RED_PORT, LED_RED, chargeStateLowActive == RESET ? SET : RESET);
 	SetEnable(enable);
 	CheckGeneralValue(identifier, value);
 	
@@ -349,6 +350,27 @@ void CheckGeneralValue(uint8_t identifier, int16_t value)
 			break;
 		case 5:
 			Kd = (float)value / 100;
+			break;
+		case 6:
+			SetRGBProgram(value);
+			break;
+		case 7:
+			// 0 = Off, 1 = Green, 2 = Red, 3 = Orange
+			switch(value)
+			{
+				case 1:
+					EnableLEDPin(LED_GREEN);
+					break;
+				case 2:
+					EnableLEDPin(LED_RED);
+					break;
+				case 3:
+					EnableLEDPin(LED_ORANGE);
+					break;
+				default:
+					// Turn off LED
+					EnableLEDPin(0);
+			}
 			break;
 		default:
 			break;

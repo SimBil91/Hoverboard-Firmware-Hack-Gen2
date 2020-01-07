@@ -62,6 +62,8 @@ extern float Kp;
 extern float batteryVoltage; 							// global variable for battery voltage
 extern float currentDC; 									// global variable for current dc
 extern float realSpeed; 									// global variable for real Speed
+extern int16_t led_slave;
+extern int16_t back_led_slave;
 uint8_t slaveError = 0;										// global variable for slave error
 	
 extern FlagStatus timedOut;								// Timeoutvariable set by timeout timer
@@ -69,7 +71,6 @@ extern FlagStatus timedOut;								// Timeoutvariable set by timeout timer
 uint32_t inactivity_timeout_counter = 0;	// Inactivity counter
 uint32_t steerCounter = 0;								// Steer counter for setting update rate
 
-void ShowBatteryState(uint32_t pin);
 void BeepsBackwards(FlagStatus beepsBackwards);
 void ShutOff(void);
 #endif
@@ -376,44 +377,40 @@ int main (void)
 			case 5:
 				sendSlaveValue = (int16_t)(Kd * 100);
 				break;			
+			case 6:
+				sendSlaveValue = led_slave;
+				break;
+			case 7:
+				sendSlaveValue = back_led_slave;
+			break;
 				default:
 					break;
 		}
 		
 
 		SendSlave(-speedS, enableSlave, RESET, chargeStateLowActive, sendSlaveIdentifier, sendSlaveValue);
-		
 		// Increment identifier
 		sendSlaveIdentifier++;
-		if (sendSlaveIdentifier > 5)
+		if (sendSlaveIdentifier > 7)
 		{
 			sendSlaveIdentifier = 0;
 		}
 		
 		// Show green battery symbol when battery level BAT_LOW_LVL1 is reached
     if (batteryVoltage > BAT_LOW_LVL1)
-		{
-			// Show green battery light
-			ShowBatteryState(LED_GREEN);
-			
+		{			
 			// Beeps backwards
 			BeepsBackwards(beepsBackwards);
 		}
 		// Make silent sound and show orange battery symbol when battery level BAT_LOW_LVL2 is reached
     else if (batteryVoltage > BAT_LOW_LVL2 && batteryVoltage < BAT_LOW_LVL1)
-		{
-			// Show orange battery light
-			ShowBatteryState(LED_ORANGE);
-			
+		{			
       buzzerFreq = 5;
       buzzerPattern = 8;
     }
 		// Make even more sound and show red battery symbol when battery level BAT_LOW_DEAD is reached
 		else if  (batteryVoltage > BAT_LOW_DEAD && batteryVoltage < BAT_LOW_LVL2)
-		{
-			// Show red battery light
-			ShowBatteryState(LED_RED);
-			
+		{			
       buzzerFreq = 5;
       buzzerPattern = 1;
     }
@@ -492,15 +489,7 @@ void ShutOff(void)
 	}
 }
 
-//----------------------------------------------------------------------------
-// Shows the battery state on the LEDs
-//----------------------------------------------------------------------------
-void ShowBatteryState(uint32_t pin)
-{
-	gpio_bit_write(LED_GREEN_PORT, LED_GREEN, pin == LED_GREEN ? SET : RESET);
-	gpio_bit_write(LED_ORANGE_PORT, LED_ORANGE, pin == LED_ORANGE ? SET : RESET);
-	gpio_bit_write(LED_RED_PORT, LED_RED, pin == LED_RED ? SET : RESET);
-}
+
 
 //----------------------------------------------------------------------------
 // Beeps while driving backwards

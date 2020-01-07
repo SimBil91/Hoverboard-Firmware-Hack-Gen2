@@ -42,6 +42,7 @@ float batteryVoltage = 40.0;
 float currentDC = 0.0;
 float realSpeed = 0.0;
 int8_t inc;
+int8_t last_inc = 0;
 // Timeoutvariable set by timeout timer
 extern FlagStatus timedOut;
 extern int32_t speedM; // speed master
@@ -239,15 +240,24 @@ void CalculateBLDC(void)
 	}
 	else
 	{
-		// Update realSpeed and PWM
-		realSpeed = (float)inc * 16000.0 / (float)loopCounter; // Ticks per Second
-		#ifdef MASTER
-		SetPWM(updatePID((float)speedM, realSpeed, (float)loopCounter / 16000.0));
-		#endif
-		#ifdef SLAVE
-		SetPWM(updatePID((float)desiredSpeedSlave, realSpeed, (float)loopCounter / 16000.0));
-		#endif
-		loopCounter = 0;
+		if (inc != last_inc)
+		{
+			last_inc = inc;
+			// Wait for direction to be determined in next loop
+		}
+		else
+		{
+			// Set and calculate velocity
+			// Update realSpeed and PWM
+			realSpeed = (float)inc * 16000.0 / (float)loopCounter; // Ticks per Second
+			#ifdef MASTER
+			SetPWM(updatePID((float)speedM, realSpeed, (float)loopCounter / 16000.0));
+			#endif
+			#ifdef SLAVE
+			SetPWM(updatePID((float)desiredSpeedSlave, realSpeed, (float)loopCounter / 16000.0));
+			#endif
+			loopCounter = 0;
+		}
 	}
 	// Calculate low-pass filter for pwm value
 	filter_reg = filter_reg - (filter_reg >> FILTER_SHIFT) + bldc_inputFilterPwm;
